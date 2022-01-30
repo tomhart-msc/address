@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<h1>Users</h1>
+<script th:inline="javascript">
+/*<![CDATA[*/
+    var offset = /*[[${offset}]]*/ 0;
+    $(document).ready(function() {
+        $.getJSON("http://localhost:8080/api/users/list?offset=" + offset, function(resp) {
+            resp.results.forEach(function(user) {
+                $("#userList").append("<li><a href=\"user/" + user.id + "\">" + user.name + "</a>");
+            });
+            if (offset >= 25) {
+                $("#usersJson").append("<p><a href=\"list-users?offset=" + (offset-25) + "\">Prev</a>");
+            }
+            if (resp.more) {
+                var newOffset = resp.offset + resp.results.length;
+                $("#usersJson").append("<p><a href=\"list-users?offset=" + newOffset + "\">Next</a>");
+            }
+        });
+    });
+/*]]>*/
+</script>
+
+</head>
+
+<body>
+<div id="usersJson">
+<ul id="userList"></ul>
+</div>
+</body>
+
+</html>

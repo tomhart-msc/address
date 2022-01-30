@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script th:inline="javascript">
+/*<![CDATA[*/
+    var id = /*[[${id}]]*/ "0";
+    $(document).ready(function() {
+        $.getJSON("http://localhost:8080/api/users/user/" + id, function(resp) {
+            $("#userName").append(resp.name);
+            $("#userEmail").append(resp.email);
+            $("#userPhone").append(resp.phone);
+            $("#userSms").append(resp.sms);
+        });
+    });
+/*]]>*/
+</script>
+
+</head>
+
+<body>
+<div id="usersJson">
+    <h1 id="userName"></h1>
+    <table>
+        <tr>
+            <td><b>Email</b></td>
+            <td id="userEmail"></td>
+        </tr>
+        <tr>
+            <td><b>Phone</b></td>
+            <td id="userPhone"></td>
+        </tr>
+        <tr>
+            <td><b>SMS</b></td>
+            <td id="userSms"></td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>
